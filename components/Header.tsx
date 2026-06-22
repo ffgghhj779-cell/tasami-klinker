@@ -72,8 +72,8 @@ export function Header() {
         className={cn(
           'fixed top-0 inset-x-0 z-50 transition-all duration-300',
           isScrolled
-            ? 'bg-white/97 backdrop-blur-lg shadow-[0_1px_0_0_#E5E7EB,0_4px_24px_-4px_rgba(0,0,0,0.06)] py-2.5 lg:py-3'
-            : 'bg-white border-b border-border-main py-3 lg:py-4'
+            ? 'bg-white/97 backdrop-blur-lg shadow-[0_1px_0_0_#E5E7EB,0_4px_24px_-4px_rgba(0,0,0,0.06)] py-3'
+            : 'bg-white border-b border-border-main py-3.5 lg:py-4'
         )}
       >
         <div className="container">
@@ -81,7 +81,7 @@ export function Header() {
             <a
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="group shrink-0 min-w-0 max-w-[58%] sm:max-w-none py-1"
+              className="group shrink-0 py-1"
               aria-label={lang === 'ar' ? 'تسامي الصناعية — الصفحة الرئيسية' : 'TASAMI INDUSTRIAL — Home'}
             >
               <HeaderLogo priority />

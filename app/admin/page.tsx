@@ -132,7 +132,7 @@ export default function AdminPage() {
         <div className="max-w-md w-full bg-white p-8 rounded-2xl border border-border-main shadow-lg">
           <div className="text-center mb-6">
             <div className="flex justify-center mb-4">
-              <Logo layout="stacked" variant="color" size="sm" />
+              <Logo layout="official-full" variant="color" size="sm" />
             </div>
             <h1 className="text-2xl font-bold text-text-main">تسامي — لوحة الإدارة</h1>
             <p className="text-sm text-text-secondary mt-2 font-english">TASAMI Admin</p>

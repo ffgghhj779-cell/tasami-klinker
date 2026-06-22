@@ -13,187 +13,101 @@ interface LogoProps {
   interactive?: boolean;
 }
 
-const markSizes = {
-  sm: 36,
-  md: 44,
-  lg: 52,
-  xl: 58,
+const fullWidths = { sm: 130, md: 160, lg: 190 } as const;
+
+/** Full official logo scaled to header height — preserves exact brand file */
+const headerHeights = {
+  sm: 56,
+  md: 64,
+  lg: 72,
+  xl: 80,
 } as const;
 
-const stackedWidths = {
-  sm: 140,
-  md: 168,
-  lg: 196,
-} as const;
-
-function MarkImage({
-  variant,
-  size,
+function OfficialImage({
   priority,
   className,
+  style,
 }: {
-  variant: LogoVariant;
-  size: number;
   priority?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 }) {
-  const src = variant === 'light' ? brand.assets.markLight : brand.assets.markColor;
   return (
     <Image
-      src={src}
-      alt=""
-      width={size}
-      height={size}
+      src={brand.assets.official}
+      alt={`${brand.name.en} — ${brand.name.ar}`}
+      width={brand.officialDimensions.width}
+      height={brand.officialDimensions.height}
       priority={priority}
-      unoptimized
-      aria-hidden
-      className={cn('shrink-0 object-contain', className)}
-      style={{ width: size, height: size }}
+      className={className}
+      style={style}
     />
   );
 }
 
-function BrandLockup({
-  variant,
-  size,
+function OfficialHeaderLogo({
+  maxHeight,
   priority,
   interactive,
   className,
 }: {
-  variant: LogoVariant;
-  size: 'sm' | 'md' | 'lg';
+  maxHeight: number;
   priority?: boolean;
   interactive?: boolean;
   className?: string;
 }) {
-  const isLight = variant === 'light';
-  const markPx = size === 'sm' ? markSizes.md : size === 'lg' ? markSizes.xl : markSizes.lg;
+  const aspect = brand.officialDimensions.width / brand.officialDimensions.height;
+  const width = Math.round(maxHeight * aspect);
 
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-3 sm:gap-4 min-w-0',
+        'inline-flex shrink-0',
         interactive &&
-          'transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-[1.04]',
+          'transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-[1.03]',
         className
       )}
     >
-      <MarkImage variant={variant} size={markPx} priority={priority} />
-      <span className="flex flex-col justify-center min-w-0 leading-none">
-        <span
-          className={cn(
-            'font-english font-extrabold tracking-wide',
-            size === 'sm' ? 'text-lg sm:text-xl' : size === 'lg' ? 'text-2xl xl:text-[1.65rem]' : 'text-xl lg:text-2xl',
-            isLight ? 'text-white' : 'text-text-main'
-          )}
-        >
-          TASAMI
-        </span>
-        <span className="flex items-center gap-1.5 sm:gap-2 mt-1">
-          <span className="h-px w-3 sm:w-4 bg-primary shrink-0" aria-hidden />
-          <span
-            className={cn(
-              'font-english font-semibold uppercase text-primary tracking-[0.2em] sm:tracking-[0.24em]',
-              size === 'sm' ? 'text-[7px] sm:text-[8px]' : 'text-[8px] sm:text-[9px]'
-            )}
-          >
-            INDUSTRIAL
-          </span>
-          <span className="h-px w-3 sm:w-4 bg-primary shrink-0" aria-hidden />
-        </span>
-        <span
-          className={cn(
-            'hidden min-[400px]:block font-bold mt-1.5 sm:mt-2 truncate',
-            size === 'sm' ? 'text-xs sm:text-sm' : 'text-sm lg:text-base',
-            isLight ? 'text-white' : 'text-text-main'
-          )}
-        >
-          {brand.name.ar}
-        </span>
-        <span
-          className={cn(
-            'hidden md:flex items-center gap-2 mt-1.5',
-            size === 'sm' ? 'text-[9px]' : 'text-[10px]',
-            isLight ? 'text-white/55' : 'text-text-secondary'
-          )}
-        >
-          <span className={cn('h-px w-3', isLight ? 'bg-white/20' : 'bg-border-main')} aria-hidden />
-          <span className="font-medium whitespace-nowrap">{brand.slogan.ar}</span>
-          <span className={cn('h-px w-3', isLight ? 'bg-white/20' : 'bg-border-main')} aria-hidden />
-        </span>
-      </span>
+      <OfficialImage
+        priority={priority}
+        className="h-auto w-auto object-contain object-left"
+        style={{ maxHeight, width, height: 'auto' }}
+      />
     </span>
   );
 }
 
-function BrandLockupCompact({
-  variant,
+function OfficialFullLogo({
+  width,
   priority,
   interactive,
   className,
+  onDark = false,
 }: {
-  variant: LogoVariant;
+  width: number;
   priority?: boolean;
   interactive?: boolean;
   className?: string;
+  onDark?: boolean;
 }) {
-  const isLight = variant === 'light';
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center gap-2.5 min-w-0',
-        interactive &&
-          'transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-[1.04]',
-        className
-      )}
-    >
-      <MarkImage variant={variant} size={markSizes.md} priority={priority} />
-      <span
-        className={cn(
-          'font-english font-extrabold text-lg tracking-wide leading-none',
-          isLight ? 'text-white' : 'text-text-main'
-        )}
-      >
-        TASAMI
-      </span>
-    </span>
+  const img = (
+    <OfficialImage
+      priority={priority}
+      className="h-auto object-contain"
+      style={{ width, height: 'auto' }}
+    />
   );
-}
 
-function StackedLogo({
-  variant,
-  size,
-  priority,
-  interactive,
-  className,
-}: {
-  variant: LogoVariant;
-  size: 'sm' | 'md' | 'lg';
-  priority?: boolean;
-  interactive?: boolean;
-  className?: string;
-}) {
-  const width = stackedWidths[size];
-  const src = variant === 'light' ? brand.assets.stackedLight : brand.assets.stackedColor;
-
-  if (variant === 'color') {
+  if (onDark) {
     return (
       <span
         className={cn(
-          'relative inline-flex justify-start',
+          'inline-flex rounded-xl bg-white px-4 py-3 shadow-sm',
           interactive && 'transition-transform duration-300 group-hover:scale-[1.02]',
           className
         )}
       >
-        <Image
-          src={brand.assets.pngOverride}
-          alt={`${brand.name.en} — ${brand.name.ar}`}
-          width={480}
-          height={640}
-          priority={priority}
-          className="h-auto object-contain"
-          style={{ width, height: 'auto' }}
-        />
+        {img}
       </span>
     );
   }
@@ -201,39 +115,29 @@ function StackedLogo({
   return (
     <span
       className={cn(
-        'relative inline-flex justify-start',
+        'inline-flex',
         interactive && 'transition-transform duration-300 group-hover:scale-[1.02]',
         className
       )}
     >
-      <Image
-        src={src}
-        alt={`${brand.name.en} — ${brand.name.ar}`}
-        width={240}
-        height={200}
-        priority={priority}
-        unoptimized
-        className="h-auto object-contain"
-        style={{ width, height: 'auto' }}
-      />
+      {img}
     </span>
   );
 }
 
 export function Logo({
-  layout = 'lockup',
+  layout = 'official-full',
   variant = 'color',
   size = 'md',
   className,
   priority = false,
   interactive = false,
 }: LogoProps) {
-  const alt = `${brand.name.en} — ${brand.name.ar}`;
-
-  if (layout === 'lockup-compact') {
+  if (layout === 'official-header') {
+    const maxHeight = size === 'sm' ? headerHeights.sm : size === 'lg' ? headerHeights.lg : headerHeights.md;
     return (
-      <BrandLockupCompact
-        variant={variant}
+      <OfficialHeaderLogo
+        maxHeight={maxHeight}
         priority={priority}
         interactive={interactive}
         className={className}
@@ -241,66 +145,53 @@ export function Logo({
     );
   }
 
-  if (layout === 'lockup') {
+  if (layout === 'official-full' || layout === 'official-light') {
+    const width = fullWidths[size];
     return (
-      <BrandLockup
-        variant={variant}
-        size={size}
+      <OfficialFullLogo
+        width={width}
         priority={priority}
         interactive={interactive}
         className={className}
-      />
-    );
-  }
-
-  if (layout === 'stacked') {
-    return (
-      <StackedLogo
-        variant={variant}
-        size={size}
-        priority={priority}
-        interactive={interactive}
-        className={className}
+        onDark={layout === 'official-light' || variant === 'light'}
       />
     );
   }
 
   if (layout === 'mark') {
-    const px = size === 'sm' ? markSizes.sm : size === 'lg' ? markSizes.lg : markSizes.md;
+    const px = size === 'sm' ? 32 : size === 'lg' ? 48 : 40;
+    const src = variant === 'light' ? brand.assets.markLight : brand.assets.markColor;
     return (
-      <span
-        className={cn(
-          'inline-flex',
-          interactive && 'transition-transform duration-300 group-hover:scale-[1.03]',
-          className
-        )}
-        aria-label={alt}
-      >
-        <MarkImage variant={variant} size={px} priority={priority} />
-      </span>
+      <Image
+        src={src}
+        alt={`${brand.name.en} — ${brand.name.ar}`}
+        width={px}
+        height={px}
+        priority={priority}
+        unoptimized
+        className={cn('shrink-0 object-contain', className)}
+        style={{ width: px, height: px }}
+      />
     );
   }
 
   return null;
 }
 
-export function HeaderLogo({
-  variant = 'color',
-  priority = false,
-}: {
-  variant?: LogoVariant;
-  priority?: boolean;
-}) {
+export function HeaderLogo({ priority = false }: { priority?: boolean }) {
   return (
     <>
-      <span className="min-[400px]:hidden">
-        <Logo layout="lockup-compact" variant={variant} priority={priority} interactive />
+      <span className="sm:hidden">
+        <OfficialHeaderLogo maxHeight={headerHeights.sm} priority={priority} interactive />
       </span>
-      <span className="hidden min-[400px]:inline-flex xl:hidden">
-        <Logo layout="lockup" variant={variant} size="md" priority={priority} interactive />
+      <span className="hidden sm:block lg:hidden">
+        <OfficialHeaderLogo maxHeight={headerHeights.md} priority={priority} interactive />
       </span>
-      <span className="hidden xl:inline-flex">
-        <Logo layout="lockup" variant={variant} size="lg" priority={priority} interactive />
+      <span className="hidden lg:block xl:hidden">
+        <OfficialHeaderLogo maxHeight={headerHeights.lg} priority={priority} interactive />
+      </span>
+      <span className="hidden xl:block">
+        <OfficialHeaderLogo maxHeight={headerHeights.xl} priority={priority} interactive />
       </span>
     </>
   );

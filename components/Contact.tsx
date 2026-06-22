@@ -323,7 +323,7 @@ export function Contact() {
             <div className="bg-text-main text-white p-7 rounded-xl shadow-lg relative overflow-hidden">
               <div className="absolute top-0 end-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -me-10 -mt-10 pointer-events-none" aria-hidden />
               <div className="relative z-10 mb-6 pb-6 border-b border-white/10 flex justify-center sm:justify-start">
-                <Logo layout="stacked" variant="light" size="md" />
+                <Logo layout="official-light" variant="light" size="md" />
               </div>
               <ul className="flex flex-col gap-5 relative z-10 list-none p-0 m-0">
                 <li className="flex items-start gap-3">
