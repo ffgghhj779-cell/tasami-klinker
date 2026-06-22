@@ -8,13 +8,15 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { QRCodeSVG } from 'qrcode.react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, MapPin, Phone, Loader2 } from 'lucide-react';
+import { Mail, MapPin, Phone, Loader2, MessageCircle } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { Toast, type ToastData } from '@/components/ui/Toast';
 import { SuccessModal } from '@/components/ui/SuccessModal';
 import { generatePdf } from '@/lib/pdf';
+import { siteContact, getWhatsAppUrl } from '@/lib/site-config';
 import { cn } from '@/lib/utils';
+import { Logo } from '@/components/brand/Logo';
 
 function getContactSchema(lang: Language) {
   const isAr = lang === 'ar';
@@ -28,6 +30,7 @@ function getContactSchema(lang: Language) {
       .min(1, isAr ? 'يجب إدخال رقم الهاتف' : 'Phone number is required')
       .regex(/^[+\d\s()-]{7,20}$/, isAr ? 'رقم الهاتف غير صالح' : 'Please enter a valid phone number'),
     notes: z.string().optional(),
+    website: z.string().optional(),
   });
 }
 
@@ -45,6 +48,11 @@ export function Contact() {
   const [toast, setToast] = useState<ToastData | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
+  const whatsappUrl = getWhatsAppUrl(
+    lang === 'ar' ? 'مرحباً، أود الاستفسار عن توريد الكلنكر' : 'Hello, I would like to inquire about clinker supply'
+  );
+  const contactPhone = siteContact.phone;
+  const contactEmail = siteContact.email;
   const schema = getContactSchema(lang);
 
   const {
@@ -177,6 +185,14 @@ export function Contact() {
             className="bg-white p-6 sm:p-8 lg:p-10 rounded-xl border border-border-main shadow-sm overflow-hidden"
           >
             <form key={lang} onSubmit={handleSubmit(onSubmit)} noValidate aria-busy={isSubmitting}>
+              <input
+                type="text"
+                {...register('website')}
+                tabIndex={-1}
+                autoComplete="off"
+                className="absolute opacity-0 pointer-events-none h-0 w-0 overflow-hidden"
+                aria-hidden
+              />
               <div className="grid sm:grid-cols-2 gap-5 mb-5">
                 {(
                   [
@@ -306,9 +322,9 @@ export function Contact() {
           >
             <div className="bg-text-main text-white p-7 rounded-xl shadow-lg relative overflow-hidden">
               <div className="absolute top-0 end-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -me-10 -mt-10 pointer-events-none" aria-hidden />
-              <h3 className="text-lg font-bold mb-6 pb-4 border-b border-white/10 relative z-10 font-english tracking-wide">
-                TASAMI INDUSTRIAL
-              </h3>
+              <div className="relative z-10 mb-6 pb-5 border-b border-white/10">
+                <Logo layout="stacked" variant="light" size="sm" />
+              </div>
               <ul className="flex flex-col gap-5 relative z-10 list-none p-0 m-0">
                 <li className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-primary mt-0.5 shrink-0" aria-hidden />
@@ -316,8 +332,8 @@ export function Contact() {
                     <div className="text-white/50 text-[10px] uppercase font-bold tracking-widest mb-1">
                       {lang === 'ar' ? 'البريد الإلكتروني' : 'Email'}
                     </div>
-                    <a href={`mailto:${t.info.email}`} className="font-semibold text-sm hover:text-primary transition-colors break-all">
-                      {t.info.email}
+                    <a href={`mailto:${contactEmail}`} className="font-semibold text-sm hover:text-primary transition-colors break-all">
+                      {contactEmail}
                     </a>
                   </div>
                 </li>
@@ -327,7 +343,9 @@ export function Contact() {
                     <div className="text-white/50 text-[10px] uppercase font-bold tracking-widest mb-1">
                       {lang === 'ar' ? 'الهاتف' : 'Phone'}
                     </div>
-                    <div className="font-semibold text-sm dir-ltr-field">{t.info.phone}</div>
+                    <a href={`tel:${contactPhone.replace(/\s/g, '')}`} className="font-semibold text-sm dir-ltr-field hover:text-primary transition-colors">
+                      {contactPhone}
+                    </a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -342,6 +360,17 @@ export function Contact() {
                   </div>
                 </li>
               </ul>
+              {whatsappUrl && (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-10 mt-6 inline-flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#25D366] text-white font-bold text-sm hover:brightness-110 transition-all"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  {lang === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}
+                </a>
+              )}
             </div>
 
             <div className="bg-bg-alt p-6 rounded-xl border border-border-main text-center hover:border-primary/30 transition-colors">

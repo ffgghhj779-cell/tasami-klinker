@@ -4,6 +4,7 @@ import './globals.css';
 import { LanguageProvider } from '@/components/LanguageProvider';
 import { JsonLd } from '@/components/JsonLd';
 import { getSiteMetadata } from '@/lib/seo';
+import { Analytics } from '@/components/Analytics';
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -37,6 +38,7 @@ export default function RootLayout({
         <LanguageProvider>
           {children}
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );

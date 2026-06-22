@@ -1,4 +1,4 @@
-import { jsPDF } from 'jspdf';
+import type { jsPDF } from 'jspdf';
 import { content, Language } from './content';
 
 export type PdfDocumentType =
@@ -69,34 +69,73 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const STORAGE_URLS: Partial<Record<PdfDocumentType, string | undefined>> = {
+  'market-report': process.env.NEXT_PUBLIC_PDF_MARKET_REPORT,
+  'chemical-analysis': process.env.NEXT_PUBLIC_PDF_CHEMICAL_ANALYSIS,
+  certificates: process.env.NEXT_PUBLIC_PDF_CERTIFICATES,
+  'technical-file': process.env.NEXT_PUBLIC_PDF_TECHNICAL_FILE,
+};
+
+async function getJsPDF() {
+  const { jsPDF } = await import('jspdf');
+  return jsPDF;
+}
+
+async function tryDownloadStoredPdf(type: PdfDocumentType): Promise<boolean> {
+  const url = STORAGE_URLS[type];
+  if (!url) return false;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return false;
+    const blob = await res.blob();
+    const filename = url.split('/').pop()?.split('?')[0] || `tasami-${type}.pdf`;
+    const objectUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = objectUrl;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(objectUrl);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function generatePdf(
   type: PdfDocumentType,
   lang: Language,
   rfqData?: RfqFormData
 ): Promise<void> {
-  // Brief delay so loading states feel intentional
-  await delay(400);
+  await delay(300);
+
+  if (type !== 'rfq') {
+    const stored = await tryDownloadStoredPdf(type);
+    if (stored) return;
+  }
+
+  const jsPDF = await getJsPDF();
 
   switch (type) {
     case 'market-report':
-      return generateMarketReport(lang);
+      return generateMarketReport(lang, jsPDF);
     case 'chemical-analysis':
-      return generateChemicalAnalysis(lang);
+      return generateChemicalAnalysis(lang, jsPDF);
     case 'certificates':
-      return generateCertificates(lang);
+      return generateCertificates(lang, jsPDF);
     case 'technical-file':
-      return generateTechnicalFile(lang);
+      return generateTechnicalFile(lang, jsPDF);
     case 'rfq':
       if (!rfqData) throw new Error('RFQ data is required');
-      return generateRfqPdf(rfqData, lang);
+      return generateRfqPdf(rfqData, lang, jsPDF);
     default:
       throw new Error(`Unknown PDF type: ${type}`);
   }
 }
 
-function generateMarketReport(lang: Language) {
+function generateMarketReport(lang: Language, JsPDF: typeof import('jspdf').jsPDF) {
   const t = content.marketStatus;
-  const doc = new jsPDF();
+  const doc = new JsPDF();
   const isAr = lang === 'ar';
 
   drawBrandHeader(
@@ -164,9 +203,9 @@ function generateMarketReport(lang: Language) {
   doc.save('Tasami_Market_Report_2026.pdf');
 }
 
-function generateChemicalAnalysis(lang: Language) {
+function generateChemicalAnalysis(lang: Language, JsPDF: typeof import('jspdf').jsPDF) {
   const t = content.product;
-  const doc = new jsPDF();
+  const doc = new JsPDF();
   const isAr = lang === 'ar';
 
   drawBrandHeader(
@@ -218,9 +257,9 @@ function generateChemicalAnalysis(lang: Language) {
   doc.save('Tasami_Chemical_Analysis_Report.pdf');
 }
 
-function generateCertificates(lang: Language) {
+function generateCertificates(lang: Language, JsPDF: typeof import('jspdf').jsPDF) {
   const t = content.product;
-  const doc = new jsPDF();
+  const doc = new JsPDF();
   const isAr = lang === 'ar';
 
   drawBrandHeader(
@@ -273,8 +312,8 @@ function generateCertificates(lang: Language) {
   doc.save('Tasami_Certificates.pdf');
 }
 
-function generateTechnicalFile(lang: Language) {
-  const doc = new jsPDF();
+function generateTechnicalFile(lang: Language, JsPDF: typeof import('jspdf').jsPDF) {
+  const doc = new JsPDF();
   const isAr = lang === 'ar';
 
   drawBrandHeader(
@@ -333,9 +372,9 @@ function generateTechnicalFile(lang: Language) {
   doc.save('Tasami_Technical_File.pdf');
 }
 
-function generateRfqPdf(data: RfqFormData, lang: Language) {
+function generateRfqPdf(data: RfqFormData, lang: Language, JsPDF: typeof import('jspdf').jsPDF) {
   const isAr = lang === 'ar';
-  const doc = new jsPDF();
+  const doc = new JsPDF();
   const refId = data.referenceId ?? `RFQ-${Date.now()}`;
   const generatedAt = new Date().toLocaleString(lang === 'ar' ? 'ar-SA' : 'en-US', {
     dateStyle: 'long',

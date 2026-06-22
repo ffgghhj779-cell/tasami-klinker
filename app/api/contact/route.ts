@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createAdminClient, isSupabaseConfigured } from '@/lib/supabase/server';
+import { sendLeadNotificationEmail } from '@/lib/email';
+import { rateLimit, getClientIp } from '@/lib/rate-limit';
 
 const contactSchema = z.object({
   company: z.string().min(1).max(500),
@@ -10,10 +12,20 @@ const contactSchema = z.object({
   phone: z.string().min(5).max(30),
   notes: z.string().max(5000).optional(),
   lang: z.enum(['ar', 'en']).optional(),
+  website: z.string().max(0).optional(),
 });
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const limit = rateLimit(ip);
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { success: false, message: 'Too many requests. Please try again later.' },
+        { status: 429, headers: limit.retryAfter ? { 'Retry-After': String(limit.retryAfter) } : {} }
+      );
+    }
+
     if (!isSupabaseConfigured()) {
       return NextResponse.json(
         {
@@ -26,6 +38,11 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const data = contactSchema.parse(body);
+
+    if (data.website) {
+      return NextResponse.json({ success: true, message: 'Request received successfully', id: 'RFQ-OK' });
+    }
+
     const referenceId = `RFQ-${Date.now()}`;
 
     const supabase = createAdminClient();
@@ -56,6 +73,12 @@ export async function POST(request: Request) {
     }
 
     const saved = row as { id: string; reference_id: string };
+
+    try {
+      await sendLeadNotificationEmail({ ...insertPayload, reference_id: saved.reference_id });
+    } catch (emailErr) {
+      console.error('[Contact] Email notification failed:', emailErr);
+    }
 
     return NextResponse.json({
       success: true,

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { ContactSubmission } from '@/lib/types/database';
 import { Loader2, LogOut, RefreshCw, Mail, Phone, Building2 } from 'lucide-react';
+import { Logo } from '@/components/brand/Logo';
 
 export default function AdminPage() {
   const [password, setPassword] = useState('');
@@ -14,6 +15,37 @@ export default function AdminPage() {
   const [leadsLoading, setLeadsLoading] = useState(false);
   const [leadsError, setLeadsError] = useState<string | null>(null);
   const [selectedLead, setSelectedLead] = useState<ContactSubmission | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredLeads = leads.filter((lead) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      lead.reference_id.toLowerCase().includes(q) ||
+      lead.company.toLowerCase().includes(q) ||
+      lead.country_port.toLowerCase().includes(q) ||
+      lead.email.toLowerCase().includes(q)
+    );
+  });
+
+  const exportCsv = () => {
+    if (leads.length === 0) return;
+    const headers = ['reference_id', 'company', 'country_port', 'quantity', 'email', 'phone', 'notes', 'lang', 'created_at'];
+    const rows = leads.map((l) =>
+      headers.map((h) => {
+        const val = String(l[h as keyof ContactSubmission] ?? '');
+        return `"${val.replace(/"/g, '""')}"`;
+      }).join(',')
+    );
+    const csv = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tasami-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const fetchLeads = useCallback(async () => {
     setLeadsLoading(true);
@@ -99,6 +131,9 @@ export default function AdminPage() {
       <div className="min-h-screen bg-bg-alt flex items-center justify-center p-4" dir="rtl">
         <div className="max-w-md w-full bg-white p-8 rounded-2xl border border-border-main shadow-lg">
           <div className="text-center mb-6">
+            <div className="flex justify-center mb-4">
+              <Logo layout="stacked" variant="color" size="sm" />
+            </div>
             <h1 className="text-2xl font-bold text-text-main">تسامي — لوحة الإدارة</h1>
             <p className="text-sm text-text-secondary mt-2 font-english">TASAMI Admin</p>
           </div>
@@ -137,13 +172,31 @@ export default function AdminPage() {
     <div className="min-h-screen bg-bg-alt p-4 sm:p-8" dir="rtl">
       <div className="max-w-6xl mx-auto">
         <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-border-main shadow-sm mb-6">
-          <div>
+          <div className="flex items-center gap-4">
+            <Logo layout="mark" variant="color" size="md" />
+            <div>
             <h1 className="text-2xl font-bold text-text-main">طلبات عروض الأسعار</h1>
             <p className="text-sm text-text-secondary mt-1 font-english">
-              RFQ Leads — {leads.length} total
+              RFQ Leads — {filteredLeads.length} of {leads.length}
             </p>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="بحث / Search..."
+              className="px-3 py-2 rounded-lg border border-border-main text-sm w-full sm:w-48 outline-none focus:border-primary"
+            />
+            <button
+              type="button"
+              onClick={exportCsv}
+              disabled={leads.length === 0}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border-main text-sm font-bold text-text-main hover:border-text-main transition-colors disabled:opacity-50"
+            >
+              CSV
+            </button>
             <button
               type="button"
               onClick={fetchLeads}
@@ -194,7 +247,7 @@ export default function AdminPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border-main/60">
-                    {leads.map((lead) => (
+                    {filteredLeads.map((lead) => (
                       <tr
                         key={lead.id}
                         onClick={() => setSelectedLead(lead)}

@@ -5,6 +5,7 @@ export const content = {
     nav: {
       ar: [
         { label: 'لماذا تسامي؟', href: '#why-tasami' },
+        { label: 'الأسواق والطلب', href: '#market' },
         { label: 'المنتج والمواصفات', href: '#product' },
         { label: 'الجودة والشهادات', href: '#quality' },
         { label: 'اللوجستيات والتسليم', href: '#logistics' },
@@ -13,6 +14,7 @@ export const content = {
       ],
       en: [
         { label: 'Why Tasami?', href: '#why-tasami' },
+        { label: 'Markets & Demand', href: '#market' },
         { label: 'Product & Specifications', href: '#product' },
         { label: 'Quality & Certifications', href: '#quality' },
         { label: 'Logistics & Delivery', href: '#logistics' },
@@ -50,14 +52,40 @@ export const content = {
     },
     points: {
       ar: [
-        '🇸🇦 منتج سعودي أصلي: طاقة إنتاجية فائضة، جودة مستقرة، توفر دائم',
-        '📄 شفافية كاملة: كل شحنة مع تقرير SGS، شهادة منشأ، ومستندات جاهزة',
-        '🛡️ شروط آمنة: دفع عبر LC، شحنات تجريبية، وحد أدنى مرن للكميات'
+        'منتج سعودي أصلي: طاقة إنتاجية فائضة، جودة مستقرة، توفر دائم',
+        'شفافية كاملة: كل شحنة مع تقرير SGS، شهادة منشأ، ومستندات جاهزة',
+        'شروط آمنة: دفع عبر LC، شحنات تجريبية، وحد أدنى مرن للكميات'
       ],
       en: [
-        '🇸🇦 Authentic Saudi Product: Surplus production capacity, stable quality, permanent availability',
-        '📄 Full Transparency: Every shipment comes with an SGS report, Certificate of Origin, and ready documentation',
-        '🛡️ Secure Terms: LC payments, trial shipments, and flexible minimum quantities'
+        'Authentic Saudi Product: Surplus production capacity, stable quality, permanent availability',
+        'Full Transparency: Every shipment comes with an SGS report, Certificate of Origin, and ready documentation',
+        'Secure Terms: LC payments, trial shipments, and flexible minimum quantities'
+      ]
+    },
+    metrics: {
+      ar: ['24–48h', 'SGS', 'LC at sight'],
+      en: ['24–48h', 'SGS', 'LC at sight']
+    },
+    metricLabels: {
+      ar: ['جاهزية الشحن', 'توثيق لكل شحنة', 'دفع آمن'],
+      en: ['Shipping ready', 'Per-shipment docs', 'Secure payment']
+    }
+  },
+  about: {
+    title: {
+      ar: 'من نحن',
+      en: 'About Tasami'
+    },
+    paragraphs: {
+      ar: [
+        'تسامي الصناعية مورّد سعودي متخصص في توريد الكلنكر عالي الجودة للأسواق الإقليمية في الشرق الأوسط وشمال أفريقيا.',
+        'نعمل من المملكة العربية السعودية مع جاهزية مخزون في موانئ الجبيل وجازان، ونوفر توثيقاً كاملاً يشمل تقارير SGS وشهادات المنشأ وفق أعلى المعايير العالمية.',
+        'عضو في اتحاد منتجي الأسمنت السعودي — مرخص من الهيئة العامة للتجارة الخارجية.'
+      ],
+      en: [
+        'TASAMI INDUSTRIAL is a Saudi supplier specialized in premium clinker for regional markets across the Middle East and North Africa.',
+        'Operating from the Kingdom of Saudi Arabia with ready stock at Jubail and Jazan ports, we provide full documentation including SGS reports and Certificates of Origin to the highest global standards.',
+        'Member of the Saudi Cement Producers Association — Licensed by the General Authority for Foreign Trade.'
       ]
     }
   },

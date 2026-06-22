@@ -103,7 +103,7 @@ body {
 }
 
 .premium-table tbody tr:hover {
-  background-color: color-mix(in srgb, var(--color-primary) 4%, white);
+  background-color: color-mix(in srgb, var(--color-text-main) 3%, white);
 }
 
 .premium-table td {
@@ -121,7 +121,8 @@ body {
 }
 
 .premium-table tbody tr:hover td:nth-child(2) {
-  color: var(--color-primary);
+  color: var(--color-text-main);
+  font-weight: 600;
 }
 
 .priority-badge {

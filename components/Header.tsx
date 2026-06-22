@@ -3,9 +3,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLanguage } from './LanguageProvider';
 import { content } from '@/lib/content';
-import { Factory, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { DownloadButton } from '@/components/ui/DownloadButton';
+import { Button } from '@/components/ui/Button';
+import { Logo } from '@/components/brand/Logo';
 import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { cn } from '@/lib/utils';
 
@@ -40,7 +41,7 @@ export function Header() {
           ? 'text-primary'
           : 'text-primary bg-primary/5'
         : mobile
-          ? 'text-text-main hover:text-primary'
+          ? 'text-text-main hover:text-text-main'
           : 'text-text-secondary hover:text-text-main'
     );
 
@@ -58,27 +59,13 @@ export function Header() {
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="flex items-center gap-3 group shrink-0"
+            className="group shrink-0 min-w-0"
+            aria-label={lang === 'ar' ? 'تسامي الصناعية — الصفحة الرئيسية' : 'TASAMI INDUSTRIAL — Home'}
           >
-            <div className="relative flex items-center justify-center w-11 h-11 rounded-lg bg-bg-alt border border-border-main group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-md">
-              <Factory className="h-5 w-5 text-primary" strokeWidth={1.75} />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className={cn(
-                'font-bold text-lg text-text-main group-hover:text-primary transition-colors',
-                lang === 'en' && 'font-english tracking-wide'
-              )}>
-                {lang === 'ar' ? 'تسامي الصناعية' : 'TASAMI INDUSTRIAL'}
-              </span>
-              {lang === 'ar' && (
-                <span className="font-english text-primary text-[9px] font-extrabold tracking-[0.18em] uppercase mt-0.5">
-                  TASAMI INDUSTRIAL
-                </span>
-              )}
-            </div>
+            <Logo layout="horizontal" variant="color" size="md" priority interactive />
           </a>
 
-          <nav className="hidden xl:flex items-center gap-0.5" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -117,9 +104,9 @@ export function Header() {
                 EN
               </button>
             </div>
-            <DownloadButton pdfType="technical-file" variant="dark" size="sm">
+            <Button href="#contact" variant="dark" size="sm">
               {content.header.cta[lang]}
-            </DownloadButton>
+            </Button>
           </div>
 
           <button
@@ -168,9 +155,9 @@ export function Header() {
                   <button type="button" className={cn(lang === 'ar' && 'active')} onClick={() => setLang('ar')}>AR</button>
                   <button type="button" className={cn(lang === 'en' && 'active')} onClick={() => setLang('en')}>EN</button>
                 </div>
-                <DownloadButton pdfType="technical-file" variant="primary" size="sm" className="shrink-0">
+                <Button href="#contact" variant="primary" size="sm" className="shrink-0" onClick={() => setMobileMenuOpen(false)}>
                   {content.header.cta[lang]}
-                </DownloadButton>
+                </Button>
               </div>
             </div>
           </motion.div>

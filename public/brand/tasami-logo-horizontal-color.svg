@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" fill="none" role="img" aria-label="TASAMI INDUSTRIAL">
+  <g transform="translate(4 6) scale(0.75)">
+    <path d="M40 6L68 30V54L40 74L12 54V30L40 6Z" stroke="#22262B" stroke-width="3.5" fill="none"/>
+    <path d="M40 6L68 30H12L40 6Z" fill="#F27C23"/>
+    <path d="M12 30L12 54L28 54L28 38H52V54L68 54L68 30" stroke="#22262B" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+    <path d="M40 50V28M40 28L33 35M40 28L47 35" stroke="#22262B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="78" y="30" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#22262B" letter-spacing="0.5">TASAMI</text>
+  <line x1="78" y1="38" x2="92" y2="38" stroke="#F27C23" stroke-width="1.2"/>
+  <text x="96" y="38" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="600" fill="#F27C23" letter-spacing="3.5">INDUSTRIAL</text>
+  <line x1="196" y1="38" x2="210" y2="38" stroke="#F27C23" stroke-width="1.2"/>
+  <text x="78" y="58" font-family="Cairo, Arial, sans-serif" font-size="16" font-weight="700" fill="#22262B">*3'EJ 'D5F'9J)</text>
+</svg>
