@@ -119,7 +119,7 @@ export function Header() {
 
             <button
               type="button"
-              className="lg:hidden p-3 -me-1 rounded-xl text-text-main hover:bg-bg-alt active:scale-95 transition-all touch-manipulation"
+              className="lg:hidden p-2.5 rounded-xl text-text-main hover:bg-bg-alt active:scale-95 transition-all touch-manipulation shrink-0"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}

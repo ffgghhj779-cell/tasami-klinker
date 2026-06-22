@@ -40,12 +40,12 @@ export function Hero() {
       </div>
 
       <div className="container relative z-10">
-        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+        <div className="max-w-xl sm:max-w-4xl mx-auto flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="status-banner mb-5 sm:mb-8 !inline-flex w-auto max-w-[calc(100%-0.5rem)] text-xs sm:text-sm"
+            className="status-banner mb-6 sm:mb-8 w-full max-w-md sm:max-w-none sm:w-auto"
             role="status"
           >
             <span className="status-dot" aria-hidden />
@@ -62,7 +62,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
             className={cn(
-              'text-[1.625rem] leading-[1.2] sm:text-4xl sm:leading-[1.12] lg:text-6xl xl:text-[4.25rem] font-extrabold text-text-main tracking-tight mb-4 sm:mb-6 px-1',
+              'text-[1.5rem] leading-[1.25] sm:text-4xl sm:leading-[1.12] lg:text-6xl xl:text-[4.25rem] font-extrabold text-text-main tracking-tight mb-5 sm:mb-6',
               lang === 'en' && 'font-english'
             )}
           >
@@ -78,7 +78,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.16 }}
-            className="text-sm sm:text-lg lg:text-xl text-text-secondary mb-7 sm:mb-10 max-w-2xl leading-relaxed px-1"
+            className="text-sm sm:text-lg lg:text-xl text-text-secondary mb-8 sm:mb-10 max-w-md sm:max-w-2xl leading-relaxed"
           >
             {t.subtitle[lang]}
           </motion.p>
@@ -87,9 +87,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.24 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-1"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full max-w-sm sm:max-w-none mx-auto sm:mx-0"
           >
-            <Button href="#how-we-work" variant="primary" size="md" className="w-full sm:w-auto sm:!px-8 sm:!py-4 sm:text-base">
+            <Button href="#how-we-work" variant="primary" size="md" className="w-full sm:w-auto sm:!px-8 sm:!py-4 sm:text-base !py-3">
               {t.btnStart[lang]}
               <Arrow className="w-5 h-5" aria-hidden />
             </Button>
@@ -97,7 +97,7 @@ export function Hero() {
               pdfType="market-report"
               variant="outline"
               size="md"
-              className="w-full sm:w-auto sm:!px-8 sm:!py-4 sm:text-base"
+              className="w-full sm:w-auto sm:!px-8 sm:!py-4 sm:text-base !py-3"
             >
               {t.btnReport[lang]}
             </DownloadButton>
@@ -107,7 +107,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.32 }}
-            className="pt-10 sm:pt-14 w-full"
+            className="pt-10 sm:pt-14 w-full max-w-md mx-auto"
           >
             <p id="certifications-label" className="text-[11px] uppercase tracking-[0.2em] text-text-secondary font-bold mb-6">
               {lang === 'ar' ? 'معتمد وموثق عالمياً' : 'Globally Certified & Verified'}

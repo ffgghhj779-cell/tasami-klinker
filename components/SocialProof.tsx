@@ -36,16 +36,16 @@ export function SocialProof() {
           viewport={{ once: true }}
           className="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-10 items-center"
         >
-          <div className="min-w-0">
-            <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-primary mb-2.5">
+          <div className="min-w-0 text-center lg:text-start">
+            <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-primary mb-3">
               {lang === 'ar' ? 'أسواقنا المستهدفة' : 'Markets We Serve'}
             </p>
-            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-5 sm:mb-6 leading-snug">
+            <h2 className="text-base sm:text-xl lg:text-2xl font-bold mb-6 sm:mb-6 leading-relaxed max-w-md mx-auto lg:mx-0">
               {lang === 'ar'
                 ? 'توريد موثوق لأسواق الشرق الأوسط وشمال أفريقيا'
                 : 'Trusted supply across Middle East & North Africa'}
             </h2>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
               {markets.map((m) => (
                 <span
                   key={m.code}
@@ -58,7 +58,7 @@ export function SocialProof() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:min-w-[280px]">
+          <div className="grid grid-cols-2 gap-3 sm:gap-3 max-w-xs mx-auto lg:max-w-none lg:mx-0 lg:min-w-[280px]">
             {stats.map((stat) => (
               <div
                 key={stat.value}
@@ -71,7 +71,7 @@ export function SocialProof() {
           </div>
         </motion.div>
 
-        <p className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/10 text-center text-[10px] sm:text-xs text-white/50 leading-relaxed px-1">
+        <p className="mt-8 sm:mt-8 pt-6 sm:pt-6 border-t border-white/10 text-center text-[10px] sm:text-xs text-white/50 leading-relaxed max-w-md mx-auto px-2">
           {content.footer.text[lang]}
         </p>
       </div>

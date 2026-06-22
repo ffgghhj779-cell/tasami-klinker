@@ -45,7 +45,7 @@ interface CertificationBadgesProps {
 
 export function CertificationBadges({ className, size = 'md' }: CertificationBadgesProps) {
   const { lang } = useLanguage();
-  const dim = size === 'sm' ? 'w-14 h-14 text-[8px]' : 'w-[3.75rem] h-[3.75rem] sm:w-20 sm:h-20 text-[9px] sm:text-[11px]';
+  const dim = size === 'sm' ? 'w-12 h-12 text-[7px]' : 'w-[3.25rem] h-[3.25rem] sm:w-20 sm:h-20 text-[8px] sm:text-[11px]';
 
   return (
     <motion.ul
@@ -53,7 +53,7 @@ export function CertificationBadges({ className, size = 'md' }: CertificationBad
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className={cn('flex flex-wrap justify-center gap-4 sm:gap-6 list-none p-0 m-0', className)}
+      className={cn('flex flex-wrap justify-center gap-3 sm:gap-6 list-none p-0 m-0 px-1', className)}
       aria-label={lang === 'ar' ? 'الشهادات والاعتمادات' : 'Certifications and accreditations'}
     >
       {badges.map((badge) => (
