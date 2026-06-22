@@ -26,5 +26,5 @@ export const brand = {
   },
 } as const;
 
-export type LogoLayout = 'horizontal' | 'stacked' | 'mark';
+export type LogoLayout = 'lockup' | 'lockup-compact' | 'stacked' | 'mark';
 export type LogoVariant = 'color' | 'light';

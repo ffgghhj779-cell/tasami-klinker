@@ -14,9 +14,9 @@ export function Footer() {
     <footer className="bg-text-main text-white">
       <div className="container py-10 lg:py-12">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-          <div className="flex flex-col gap-4">
-            <Logo layout="stacked" variant="light" size="sm" />
-            <p className="text-white/55 text-xs max-w-xs leading-relaxed">
+          <div className="flex flex-col gap-5 items-start">
+            <Logo layout="stacked" variant="light" size="md" />
+            <p className="text-white/55 text-sm max-w-xs leading-relaxed">
               {t.tagline[lang]}
             </p>
           </div>

@@ -1,13 +1,12 @@
 "use client";
 
+import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
 interface ResponsiveTableProps {
   headers: string[];
   rows: string[][];
-  /** Column index to highlight (e.g. priority column) */
   highlightColumn?: number;
-  /** Use monospace styling for these column indices */
   monoColumns?: number[];
   className?: string;
 }
@@ -21,7 +20,6 @@ export function ResponsiveTable({
 }: ResponsiveTableProps) {
   return (
     <div className={cn('premium-table-wrapper', className)}>
-      {/* Desktop table */}
       <div className="hidden md:block overflow-x-auto">
         <table className="premium-table w-full">
           <thead>
@@ -56,10 +54,16 @@ export function ResponsiveTable({
         </table>
       </div>
 
-      {/* Mobile cards */}
-      <div className="md:hidden flex flex-col gap-3 p-4">
+      <div className="md:hidden flex flex-col gap-3.5 p-4 sm:p-5">
         {rows.map((row, rowIdx) => (
-          <div key={rowIdx} className="premium-table-card">
+          <motion.div
+            key={rowIdx}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.35, delay: rowIdx * 0.04, ease: [0.22, 1, 0.36, 1] as const }}
+            className="premium-table-card"
+          >
             <div className="premium-table-card-title">{row[0]}</div>
             <dl className="premium-table-card-grid">
               {headers.slice(1).map((header, colIdx) => {
@@ -78,7 +82,7 @@ export function ResponsiveTable({
                 );
               })}
             </dl>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
