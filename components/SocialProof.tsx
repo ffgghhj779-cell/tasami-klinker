@@ -15,22 +15,10 @@ const markets = [
 ];
 
 const stats = [
-  {
-    value: '24–48h',
-    label: { ar: 'جاهزية الشحن', en: 'Shipping readiness' },
-  },
-  {
-    value: '7',
-    label: { ar: 'أسواق مستهدفة', en: 'Target markets' },
-  },
-  {
-    value: 'LC',
-    label: { ar: 'دفع آمن at sight', en: 'Secure LC at sight' },
-  },
-  {
-    value: 'SGS',
-    label: { ar: 'توثيق لكل شحنة', en: 'Per-shipment docs' },
-  },
+  { value: '24–48h', label: { ar: 'جاهزية الشحن', en: 'Shipping readiness' } },
+  { value: '7', label: { ar: 'أسواق مستهدفة', en: 'Target markets' } },
+  { value: 'LC', label: { ar: 'دفع آمن at sight', en: 'Secure LC at sight' } },
+  { value: 'SGS', label: { ar: 'توثيق لكل شحنة', en: 'Per-shipment docs' } },
 ];
 
 export function SocialProof() {
@@ -38,7 +26,7 @@ export function SocialProof() {
 
   return (
     <section
-      className="bg-text-main text-white py-12 lg:py-14"
+      className="bg-text-main text-white py-10 sm:py-12 lg:py-14"
       aria-label={lang === 'ar' ? 'إثبات الثقة والأسواق' : 'Trust and markets proof'}
     >
       <div className="container">
@@ -46,44 +34,44 @@ export function SocialProof() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid lg:grid-cols-[1fr_auto] gap-10 items-center"
+          className="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-10 items-center"
         >
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary mb-3">
+          <div className="min-w-0">
+            <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-primary mb-2.5">
               {lang === 'ar' ? 'أسواقنا المستهدفة' : 'Markets We Serve'}
             </p>
-            <h2 className="text-xl sm:text-2xl font-bold mb-6 leading-snug">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-5 sm:mb-6 leading-snug">
               {lang === 'ar'
                 ? 'توريد موثوق لأسواق الشرق الأوسط وشمال أفريقيا'
                 : 'Trusted supply across Middle East & North Africa'}
             </h2>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {markets.map((m) => (
                 <span
                   key={m.code}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-sm font-semibold hover:bg-white/15 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-white/10 border border-white/10 text-xs sm:text-sm font-semibold"
                 >
-                  <span className="text-primary font-extrabold text-xs">{m.code}</span>
+                  <span className="text-primary font-extrabold text-[10px] sm:text-xs">{m.code}</span>
                   {m.name[lang]}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-4 lg:min-w-[280px]">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:min-w-[280px]">
             {stats.map((stat) => (
               <div
                 key={stat.value}
-                className="text-center lg:text-start p-4 rounded-xl bg-white/5 border border-white/10"
+                className="text-center lg:text-start p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10"
               >
-                <div className="text-2xl font-extrabold text-primary mb-1">{stat.value}</div>
-                <div className="text-xs text-white/70 font-medium leading-snug">{stat.label[lang]}</div>
+                <div className="text-xl sm:text-2xl font-extrabold text-primary mb-0.5 sm:mb-1">{stat.value}</div>
+                <div className="text-[10px] sm:text-xs text-white/70 font-medium leading-snug">{stat.label[lang]}</div>
               </div>
             ))}
           </div>
         </motion.div>
 
-        <p className="mt-8 pt-6 border-t border-white/10 text-center text-xs text-white/50">
+        <p className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/10 text-center text-[10px] sm:text-xs text-white/50 leading-relaxed px-1">
           {content.footer.text[lang]}
         </p>
       </div>

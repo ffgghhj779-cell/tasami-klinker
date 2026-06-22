@@ -14,7 +14,7 @@ interface SectionHeaderProps {
 export function SectionHeader({ title, subtitle, className, align = 'start', id }: SectionHeaderProps) {
   return (
     <div className={cn(
-      'mb-10 lg:mb-12',
+      'mb-8 sm:mb-10 lg:mb-12',
       align === 'center' && 'text-center',
       className
     )}>
@@ -33,7 +33,7 @@ export function SectionHeader({ title, subtitle, className, align = 'start', id 
             TASAMI
           </span>
         </div>
-        <h2 id={id} className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main leading-tight tracking-tight">
+        <h2 id={id} className="text-xl sm:text-2xl lg:text-4xl font-bold text-text-main leading-tight tracking-tight">
           {title}
         </h2>
         {subtitle && (

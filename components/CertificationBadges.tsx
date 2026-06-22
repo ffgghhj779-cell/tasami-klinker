@@ -45,7 +45,7 @@ interface CertificationBadgesProps {
 
 export function CertificationBadges({ className, size = 'md' }: CertificationBadgesProps) {
   const { lang } = useLanguage();
-  const dim = size === 'sm' ? 'w-16 h-16 text-[9px]' : 'w-[4.5rem] h-[4.5rem] sm:w-20 sm:h-20 text-[10px] sm:text-[11px]';
+  const dim = size === 'sm' ? 'w-14 h-14 text-[8px]' : 'w-[3.75rem] h-[3.75rem] sm:w-20 sm:h-20 text-[9px] sm:text-[11px]';
 
   return (
     <motion.ul

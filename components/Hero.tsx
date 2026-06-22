@@ -23,7 +23,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative min-h-[88vh] flex flex-col justify-center pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden"
+      className="relative min-h-0 sm:min-h-[85vh] lg:min-h-[88vh] flex flex-col justify-center pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-24 overflow-hidden"
       aria-labelledby={headingId}
     >
       <div className="absolute inset-0 z-0" aria-hidden>
@@ -45,7 +45,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="status-banner mb-8 !inline-flex w-auto"
+            className="status-banner mb-5 sm:mb-8 !inline-flex w-auto max-w-[calc(100%-0.5rem)] text-xs sm:text-sm"
             role="status"
           >
             <span className="status-dot" aria-hidden />
@@ -62,15 +62,14 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
             className={cn(
-              'text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-extrabold text-text-main leading-[1.12] tracking-tight mb-6',
+              'text-[1.625rem] leading-[1.2] sm:text-4xl sm:leading-[1.12] lg:text-6xl xl:text-[4.25rem] font-extrabold text-text-main tracking-tight mb-4 sm:mb-6 px-1',
               lang === 'en' && 'font-english'
             )}
           >
             {titleMain}
             {titleAccent && (
               <>
-                <br className="hidden sm:block" />
-                <span className="text-primary"> {titleAccent}</span>
+                <span className="block sm:inline sm:ms-1 mt-1 sm:mt-0 text-primary">{titleAccent}</span>
               </>
             )}
           </motion.h1>
@@ -79,7 +78,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.16 }}
-            className="text-base sm:text-lg lg:text-xl text-text-secondary mb-10 max-w-2xl leading-relaxed"
+            className="text-sm sm:text-lg lg:text-xl text-text-secondary mb-7 sm:mb-10 max-w-2xl leading-relaxed px-1"
           >
             {t.subtitle[lang]}
           </motion.p>
@@ -88,17 +87,17 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.24 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-1"
           >
-            <Button href="#how-we-work" variant="primary" size="lg" className="w-full sm:w-auto">
+            <Button href="#how-we-work" variant="primary" size="md" className="w-full sm:w-auto sm:!px-8 sm:!py-4 sm:text-base">
               {t.btnStart[lang]}
               <Arrow className="w-5 h-5" aria-hidden />
             </Button>
             <DownloadButton
               pdfType="market-report"
               variant="outline"
-              size="lg"
-              className="w-full sm:w-auto"
+              size="md"
+              className="w-full sm:w-auto sm:!px-8 sm:!py-4 sm:text-base"
             >
               {t.btnReport[lang]}
             </DownloadButton>
@@ -108,7 +107,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.32 }}
-            className="pt-14 w-full"
+            className="pt-10 sm:pt-14 w-full"
           >
             <p id="certifications-label" className="text-[11px] uppercase tracking-[0.2em] text-text-secondary font-bold mb-6">
               {lang === 'ar' ? 'معتمد وموثق عالمياً' : 'Globally Certified & Verified'}

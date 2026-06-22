@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { brand, type LogoLayout, type LogoVariant } from '@/lib/brand';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/components/LanguageProvider';
 
 interface LogoProps {
   layout?: LogoLayout;
@@ -15,9 +16,7 @@ interface LogoProps {
 
 const fullWidths = { sm: 130, md: 160, lg: 190 } as const;
 
-/** Full official logo scaled to header height — preserves exact brand file */
 const headerHeights = {
-  sm: 56,
   md: 64,
   lg: 72,
   xl: 80,
@@ -42,6 +41,73 @@ function OfficialImage({
       className={className}
       style={style}
     />
+  );
+}
+
+/** Top icon crop from official logo file */
+function OfficialMarkIcon({
+  size = 40,
+  priority,
+}: {
+  size?: number;
+  priority?: boolean;
+}) {
+  return (
+    <span
+      className="relative shrink-0 overflow-hidden rounded-md bg-transparent"
+      style={{ width: size, height: size }}
+      aria-hidden
+    >
+      <OfficialImage
+        priority={priority}
+        className="absolute top-0 left-1/2 max-w-none -translate-x-1/2 object-cover object-top"
+        style={{ width: Math.round(size * 1.35), height: 'auto' }}
+      />
+    </span>
+  );
+}
+
+function BrandWordmark({
+  variant = 'color',
+  compact = false,
+}: {
+  variant?: LogoVariant;
+  compact?: boolean;
+}) {
+  const { lang } = useLanguage();
+  const isLight = variant === 'light';
+
+  return (
+    <span className="flex flex-col justify-center min-w-0 leading-none gap-0.5">
+      <span
+        className={cn(
+          'font-bold truncate',
+          compact ? 'text-[13px]' : 'text-sm sm:text-[15px]',
+          isLight ? 'text-white' : 'text-text-main'
+        )}
+      >
+        {lang === 'ar' ? brand.name.ar : brand.name.en}
+      </span>
+      {lang === 'ar' && (
+        <span
+          className={cn(
+            'font-english font-semibold uppercase tracking-[0.14em] text-primary',
+            compact ? 'text-[7px]' : 'text-[8px]'
+          )}
+        >
+          TASAMI INDUSTRIAL
+        </span>
+      )}
+      <span
+        className={cn(
+          'font-medium truncate',
+          compact ? 'text-[8px]' : 'text-[9px] sm:text-[10px]',
+          isLight ? 'text-white/60' : 'text-text-secondary'
+        )}
+      >
+        {brand.slogan[lang]}
+      </span>
+    </span>
   );
 }
 
@@ -134,7 +200,7 @@ export function Logo({
   interactive = false,
 }: LogoProps) {
   if (layout === 'official-header') {
-    const maxHeight = size === 'sm' ? headerHeights.sm : size === 'lg' ? headerHeights.lg : headerHeights.md;
+    const maxHeight = size === 'lg' ? headerHeights.lg : headerHeights.md;
     return (
       <OfficialHeaderLogo
         maxHeight={maxHeight}
@@ -178,19 +244,23 @@ export function Logo({
   return null;
 }
 
+/** Mobile/tablet: icon + name + slogan | Desktop: full official logo */
 export function HeaderLogo({ priority = false }: { priority?: boolean }) {
   return (
     <>
-      <span className="sm:hidden">
-        <OfficialHeaderLogo maxHeight={headerHeights.sm} priority={priority} interactive />
+      <span
+        className={cn(
+          'lg:hidden inline-flex items-center gap-2.5 min-w-0 max-w-[calc(100vw-4.5rem)]',
+          'transition-all duration-300 ease-out group-hover:scale-[1.02]'
+        )}
+      >
+        <OfficialMarkIcon size={38} priority={priority} />
+        <BrandWordmark />
       </span>
-      <span className="hidden sm:block lg:hidden">
-        <OfficialHeaderLogo maxHeight={headerHeights.md} priority={priority} interactive />
-      </span>
-      <span className="hidden lg:block xl:hidden">
+      <span className="hidden lg:inline-flex xl:hidden">
         <OfficialHeaderLogo maxHeight={headerHeights.lg} priority={priority} interactive />
       </span>
-      <span className="hidden xl:block">
+      <span className="hidden xl:inline-flex">
         <OfficialHeaderLogo maxHeight={headerHeights.xl} priority={priority} interactive />
       </span>
     </>
