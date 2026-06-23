@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from './LanguageProvider';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
 import { Button } from '@/components/ui/Button';
-import { MessageCircle } from 'lucide-react';
-import { getWhatsAppUrl } from '@/lib/site-config';
+import { MessageCircle, Phone } from 'lucide-react';
+import { getWhatsAppUrl, formatPhoneTel, siteContact } from '@/lib/site-config';
 
 export function StickyMobileCta() {
   const { lang } = useLanguage();
@@ -60,6 +60,13 @@ export function StickyMobileCta() {
         >
           <div className="container">
             <div className="flex items-center gap-2.5 p-2 rounded-2xl bg-white/92 backdrop-blur-xl border border-border-main/80 shadow-[0_-8px_32px_rgba(0,0,0,0.12)]">
+              <a
+                href={`tel:${formatPhoneTel(siteContact.phone)}`}
+                className="inline-flex items-center justify-center w-[48px] h-[48px] rounded-xl bg-bg-alt border border-border-main text-text-main shrink-0 active:scale-95 hover:border-primary hover:text-primary transition-all touch-manipulation"
+                aria-label={siteContact.phone}
+              >
+                <Phone className="w-5 h-5" />
+              </a>
               <Button href="#contact" variant="primary" size="md" className="flex-1 min-h-[48px] text-[15px]">
                 {lang === 'ar' ? 'طلب عرض سعر' : 'Request Quote'}
               </Button>

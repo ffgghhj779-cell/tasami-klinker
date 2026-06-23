@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '@/components/ui/Button';
 import { HeaderLogo } from '@/components/brand/Logo';
+import { PhoneLink } from '@/components/PhoneLink';
 import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { cn } from '@/lib/utils';
 
@@ -108,6 +109,7 @@ export function Header() {
             </nav>
 
             <div className="hidden lg:flex items-center gap-4 shrink-0">
+              <PhoneLink variant="header" />
               <div className="lang-switch" role="group" aria-label="Language switcher">
                 <button type="button" className={cn(lang === 'ar' && 'active')} onClick={() => setLang('ar')} aria-pressed={lang === 'ar'}>AR</button>
                 <button type="button" className={cn(lang === 'en' && 'active')} onClick={() => setLang('en')} aria-pressed={lang === 'en'}>EN</button>
@@ -199,6 +201,9 @@ export function Header() {
               </nav>
 
               <div className="p-5 border-t border-border-main bg-bg-alt/50 space-y-4">
+                <div className="flex justify-center">
+                  <PhoneLink variant="chip" />
+                </div>
                 <div className="lang-switch w-full justify-center">
                   <button type="button" className={cn('flex-1 py-2.5', lang === 'ar' && 'active')} onClick={() => setLang('ar')}>AR</button>
                   <button type="button" className={cn('flex-1 py-2.5', lang === 'en' && 'active')} onClick={() => setLang('en')}>EN</button>

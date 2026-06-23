@@ -5,6 +5,8 @@ import { content } from '@/lib/content';
 import { motion } from 'motion/react';
 import { CheckCircle2, FileText, ShieldCheck } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { SectionImage } from '@/components/ui/SectionImage';
+import { siteImages } from '@/lib/site-images';
 import { staggerContainer, fadeInUp, cardHover } from '@/lib/motion';
 
 const icons = [CheckCircle2, FileText, ShieldCheck];
@@ -18,6 +20,20 @@ export function WhyTasami() {
     <section id="why-tasami" className="section-padding bg-white" aria-labelledby={headingId}>
       <div className="container">
         <SectionHeader id={headingId} title={t.title[lang]} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-8 lg:mb-10"
+        >
+          <SectionImage
+            src={siteImages.operationsQuarry.src}
+            alt={siteImages.operationsQuarry.alt[lang]}
+            aspect="video"
+            overlay
+          />
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 12 }}

@@ -252,7 +252,7 @@ export function Contact() {
                     {...register('phone')}
                     className={cn('dir-ltr-field', fieldClass(!!errors.phone))}
                     autoComplete="tel"
-                    placeholder="+966 XX XXX XXXX"
+                    placeholder="+966 54 838 7323"
                     aria-invalid={!!errors.phone}
                     aria-describedby={errors.phone ? 'phone-error' : undefined}
                   />

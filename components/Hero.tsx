@@ -9,6 +9,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { DownloadButton } from '@/components/ui/DownloadButton';
 import { CertificationBadges } from '@/components/CertificationBadges';
+import { PhoneLink } from '@/components/PhoneLink';
 import { cn } from '@/lib/utils';
 
 export function Hero() {
@@ -82,6 +83,15 @@ export function Hero() {
           >
             {t.subtitle[lang]}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mb-6 sm:mb-8"
+          >
+            <PhoneLink variant="chip" />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

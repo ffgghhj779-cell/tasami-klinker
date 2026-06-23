@@ -289,7 +289,8 @@ export const content = {
     },
     info: {
       email: 'info@tasami-industrial.com',
-      phone: '+966 XX XXX XXXX',
+      phone: '+966 54 838 7323',
+      whatsapp: '966548387323',
       address: {
         ar: 'جدة – المملكة العربية السعودية',
         en: 'Jeddah - Kingdom of Saudi Arabia'

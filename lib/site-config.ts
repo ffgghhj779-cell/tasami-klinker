@@ -1,12 +1,15 @@
 import { content } from './content';
 
-/** Public contact details — override via env in production */
 export const siteContact = {
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || content.contact.info.email,
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || content.contact.info.phone,
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '',
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || content.contact.info.whatsapp,
   address: content.contact.info,
 };
+
+export function formatPhoneTel(phone: string): string {
+  return phone.replace(/\s/g, '');
+}
 
 export function getWhatsAppUrl(message?: string): string | null {
   const number = siteContact.whatsapp.replace(/\D/g, '');
@@ -16,9 +19,9 @@ export function getWhatsAppUrl(message?: string): string | null {
 }
 
 export const heroImage = {
-  src: 'https://images.unsplash.com/photo-1581094277771-cbb32757aa69?w=1920&q=80',
+  src: '/images/hero-quarry.jpg',
   alt: {
-    ar: 'منشأة صناعية وموانئ شحن',
-    en: 'Industrial facility and shipping logistics',
+    ar: 'منجم وعمليات استخراج صناعية لتوريد الكلنكر',
+    en: 'Quarry and industrial extraction operations for clinker supply',
   },
 };

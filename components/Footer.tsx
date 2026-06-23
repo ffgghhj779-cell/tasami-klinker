@@ -3,6 +3,9 @@
 import { useLanguage } from './LanguageProvider';
 import { content } from '@/lib/content';
 import { Logo } from '@/components/brand/Logo';
+import { PhoneLink } from '@/components/PhoneLink';
+import { siteContact } from '@/lib/site-config';
+import { Mail } from 'lucide-react';
 
 const footerHrefs = ['/privacy', '/terms', '#quality'];
 
@@ -19,6 +22,16 @@ export function Footer() {
             <p className="text-white/55 text-sm max-w-xs leading-relaxed">
               {t.tagline[lang]}
             </p>
+            <div className="flex flex-col gap-2.5">
+              <a
+                href={`mailto:${siteContact.email}`}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-white/75 hover:text-white transition-colors"
+              >
+                <Mail className="w-4 h-4 shrink-0" aria-hidden />
+                {siteContact.email}
+              </a>
+              <PhoneLink variant="footer" />
+            </div>
           </div>
 
           <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer navigation">

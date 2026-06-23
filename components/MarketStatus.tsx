@@ -5,6 +5,8 @@ import { content } from '@/lib/content';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { ResponsiveTable } from '@/components/ui/ResponsiveTable';
 import { DownloadButton } from '@/components/ui/DownloadButton';
+import { SectionImage } from '@/components/ui/SectionImage';
+import { siteImages } from '@/lib/site-images';
 
 export function MarketStatus() {
   const { lang } = useLanguage();
@@ -24,6 +26,14 @@ export function MarketStatus() {
             {lang === 'ar' ? 'المصدر: التقارير الاقتصادية المعتمدة' : 'Source: Authorized Economic Reports'}
           </span>
         </div>
+
+        <SectionImage
+          src={siteImages.operationsMountain.src}
+          alt={siteImages.operationsMountain.alt[lang]}
+          aspect="video"
+          overlay
+          className="mb-8"
+        />
 
         <ResponsiveTable
           headers={t.tableHeaders[lang]}

@@ -7,6 +7,8 @@ import { Anchor, Calculator, Map, Package, Ship, Truck, Factory } from 'lucide-r
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { ResponsiveTable } from '@/components/ui/ResponsiveTable';
 import { Button } from '@/components/ui/Button';
+import { SectionImage } from '@/components/ui/SectionImage';
+import { siteImages } from '@/lib/site-images';
 
 const flowIcons = [Factory, Anchor, Ship, Map, Package, Truck];
 
@@ -20,6 +22,20 @@ export function Logistics() {
     <section id="logistics" className="section-padding bg-bg-alt" aria-labelledby={headingId}>
       <div className="container">
         <SectionHeader id={headingId} title={t.title[lang]} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-8 lg:mb-10"
+        >
+          <SectionImage
+            src={siteImages.logistics.src}
+            alt={siteImages.logistics.alt[lang]}
+            aspect="wide"
+            overlay
+          />
+        </motion.div>
 
         {/* Mobile: vertical stepper */}
         <motion.div

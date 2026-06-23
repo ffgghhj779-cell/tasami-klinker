@@ -5,6 +5,8 @@ import { content } from '@/lib/content';
 import { motion } from 'motion/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { SectionImage } from '@/components/ui/SectionImage';
+import { siteImages } from '@/lib/site-images';
 import { Button } from '@/components/ui/Button';
 import { staggerContainer, fadeInUp } from '@/lib/motion';
 
@@ -18,6 +20,20 @@ export function HowWeWork() {
     <section id="how-we-work" className="section-padding bg-white" aria-labelledby={headingId}>
       <div className="container">
         <SectionHeader id={headingId} title={t.title[lang]} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-8 lg:mb-10"
+        >
+          <SectionImage
+            src={siteImages.operationsConstruction.src}
+            alt={siteImages.operationsConstruction.alt[lang]}
+            aspect="video"
+            overlay
+          />
+        </motion.div>
 
         <div className="relative mt-4 mb-14">
           <div className="hidden lg:block absolute top-7 inset-x-[12%] h-px bg-border-main" aria-hidden />

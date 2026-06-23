@@ -103,6 +103,7 @@ export function getOrganizationJsonLd() {
     logo: `${siteConfig.url}/opengraph-image`,
     description: seoContent.description,
     email: siteConfig.email,
+    telephone: content.contact.info.phone,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Jeddah',

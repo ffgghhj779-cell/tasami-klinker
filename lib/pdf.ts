@@ -485,7 +485,7 @@ function generateRfqPdf(data: RfqFormData, lang: Language, JsPDF: typeof import(
   doc.setFontSize(8);
   doc.setTextColor(MUTED.r, MUTED.g, MUTED.b);
   doc.text(`${isAr ? 'تاريخ الإنشاء' : 'Generated on'}: ${generatedAt}`, 14, y);
-  doc.text('info@tasami-industrial.com  |  +966 XX XXX XXXX', 14, y + 5);
+  doc.text('info@tasami-industrial.com  |  +966 54 838 7323', 14, y + 5);
 
   drawFooter(doc, 1, 1);
   doc.save(`Tasami_RFQ_${refId}.pdf`);

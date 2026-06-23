@@ -7,6 +7,8 @@ import { Award } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { ResponsiveTable } from '@/components/ui/ResponsiveTable';
 import { DownloadButton } from '@/components/ui/DownloadButton';
+import { SectionImage } from '@/components/ui/SectionImage';
+import { siteImages } from '@/lib/site-images';
 
 export function ProductSpecs() {
   const { lang } = useLanguage();
@@ -62,6 +64,19 @@ export function ProductSpecs() {
             className="lg:col-span-2 flex flex-col gap-6"
             id="quality"
           >
+            <div className="grid grid-cols-2 gap-3">
+              <SectionImage
+                src={siteImages.productPrimary.src}
+                alt={siteImages.productPrimary.alt[lang]}
+                aspect="square"
+              />
+              <SectionImage
+                src={siteImages.productSecondary.src}
+                alt={siteImages.productSecondary.alt[lang]}
+                aspect="square"
+              />
+            </div>
+
             <div className="p-6 lg:p-7 bg-bg-alt border border-border-main rounded-xl relative group hover:border-primary/30 transition-colors">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-white border border-border-main flex items-center justify-center group-hover:border-primary transition-colors">

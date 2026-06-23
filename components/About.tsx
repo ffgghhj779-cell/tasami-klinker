@@ -4,6 +4,8 @@ import { useLanguage } from './LanguageProvider';
 import { content } from '@/lib/content';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { SectionReveal } from '@/components/ui/SectionReveal';
+import { SectionImage } from '@/components/ui/SectionImage';
+import { siteImages } from '@/lib/site-images';
 import { MapPin, Building2, Shield } from 'lucide-react';
 
 export function About() {
@@ -16,6 +18,15 @@ export function About() {
     <section id="about" className="section-padding bg-white" aria-labelledby={headingId}>
       <div className="container">
         <SectionHeader id={headingId} title={t.title[lang]} />
+
+        <SectionReveal className="mb-8 lg:mb-10">
+          <SectionImage
+            src={siteImages.about.src}
+            alt={siteImages.about.alt[lang]}
+            aspect="wide"
+            overlay
+          />
+        </SectionReveal>
 
         <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {t.paragraphs[lang].map((paragraph, idx) => {
